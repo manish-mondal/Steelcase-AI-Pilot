@@ -23,8 +23,9 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 
 try:
     # get base path.
-    base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
+    # base_path = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    base_path= os.path.dirname(os.path.abspath(__file__))
+    # print(base_path)
     # Initial setup, create credentials instance.
     credentials = Credentials.service_account_credentials_builder() \
         .from_file(base_path + "/pdfservices-api-credentials.json") \
