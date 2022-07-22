@@ -2,6 +2,7 @@ import json
 import logging
 import os.path
 import string
+import csv
 from zipfile import ZipFile
 
 from adobe.pdfservices.operation.auth.credentials import Credentials
@@ -60,3 +61,23 @@ def extract_text_from_pdf(pdf_file_name: str):
 
 
 print(extract_text_from_pdf("extractPdfInput.pdf"))
+
+
+
+def read_csv_team_skill (csv_file_name: str):
+    teams = {}
+
+    with open(csv_file_name, newline='') as grossFile:
+        spamreader = csv.reader(grossFile, delimiter=',', quotechar='|')
+        next(smapreader)
+        for row in spamreader:
+            teams[row[0]] = row[1]
+
+    grossFile.close()
+
+    teams_skillset = {}
+
+    for key in teams:
+        teams_skillset[key] = teams[key].split(";")
+
+    return teams_skillset
