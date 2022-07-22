@@ -33,7 +33,7 @@ def extract_text_from_pdf(pdf_file_name: str):
         extract_pdf_operation = ExtractPDFOperation.create_new()
 
         # Set operation input from a source file.
-        source = FileRef.create_from_local_file(base_path + "/resources/{}".format(pdf_file_name))
+        source = FileRef.create_from_local_file(base_path + "/{}".format(pdf_file_name))
         extract_pdf_operation.set_input(source)
 
         # Build ExtractPDF options and set them into the operation
@@ -52,24 +52,23 @@ def extract_text_from_pdf(pdf_file_name: str):
             zip.extractall()
             zip.close()
         
-        return json.load(open(base_path + '/structuredData.json', 'r', encoding="utf8"))
+        # return json.load(open(base_path + '/structuredData.json', 'r', encoding="utf8"))
+        txt_array = [] #Array to hold all the 'text' from the json
+        jfile = open(base_path + '/structuredData.json', 'r', encoding = "utf8") #Opens the json with the proper encoding
+        json_object = json.load(jfile) #Loads the json so it is accessible
+        for x in json_object.get('elements'): #Iterates through the elements' keys -- the texts are in here
+            txt_array.append(x.get('Text')) #Appends all he texts to the array created above
+        return(txt_array)
 
     except (ServiceApiException, ServiceUsageException, SdkException):
         logging.exception("Exception encountered while executing operation")
-
-    
-
-
-print(extract_text_from_pdf("extractPdfInput.pdf"))
-
-
 
 def read_csv_team_skill (csv_file_name: str):
     teams = {}
 
     with open(csv_file_name, newline='') as grossFile:
         spamreader = csv.reader(grossFile, delimiter=',', quotechar='|')
-        next(smapreader)
+        next(spamreader)
         for row in spamreader:
             teams[row[0]] = row[1]
 

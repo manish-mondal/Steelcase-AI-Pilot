@@ -1,4 +1,5 @@
 import argparse
+from main import main
 
 DEFAULT_OUTPUT_FILE_NAME = "team_selection"
 RESUME_HELP = "path to the resume pdf file"
@@ -58,8 +59,8 @@ if __name__ == '__main__':
     resume_pdf, teams_csv, output_file_name = get_input_arguments()
     
     # Here is where we can use the 3 input args to do any processing we need to
-    
-    # Now we can append to the output file
+    main('resources/{}'.format(resume_pdf), 'resources/{}'.format(teams_csv))
+    # Now we can append to the output   ile
     test_intern_name = "Bobby Intern"
     test_team_name = "Hedberg H2 Team"
     write_output_file(output_file_name, test_intern_name, test_team_name)
